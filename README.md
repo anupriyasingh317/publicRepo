@@ -1,1 +1,1 @@
-# publicRepo
+# Solr -Django project
