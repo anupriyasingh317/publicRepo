@@ -1,0 +1,40 @@
+Search Bot Application Documentation for windows
+
+Install python, Solr 6.5.1 / 8.5.1 , Pycharm
+
+1. Working with Solr
+
+a) open cmd
+inside bin folder of solr write command "solr start"
+this will give you the port on which its running.
+check with opening it (localhost//port no.) on google.
+
+b)now create solr core// already created then select it
+
+write command on cmd "solr create -c test"  /test is the name of your core
+
+on localhost port you'll see core selector
+select the name which you just created
+
+c)now go to Documents option here we upload our files/doc
+
+Request Handler - write--> /update/extract
+select file upload doc type----> Extracting Req. Handler Params---> 
+write    literal.id=d[write id number here eg 1,2,3 and remove bracketes]&uprefix=attr_&fnap.content=attr_content&commit=true
+submit
+success
+
+d)open query option 
+write * in q
+this will return all the uploaded doc
+
+you can also search by id number here like d1,d2,d3...
+
+2. Working with code in Pycharm
+
+write command 
+python manage.py runserver 
+
+click the link
+
+
