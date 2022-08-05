@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>search box</title>
+<!--	<link rel="stylesheet" href="styles.css">-->
+
+
+	<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"  rel="stylesheet">
+
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+</head>
+<body>
+<style>
+	@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
+*{
+	margin: 0;
+	padding: 0;
+	outline: none;
+	box-sizing: border-box;
+	font-family: 'Comfortaa', cursive;
+}
+
+body{
+	background: url('https://www.hp/us-en/shop/app/assets/images/uploads/prod/25-best-hd-wallpapers-laptops159561982840438.jpg') no-repeat center;
+	background-size: cover;
+	width: 100%;
+	height: 100vh;
+}
+
+.wrapper{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0,0.6);
+    max-width: 550px;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+.wrapper .input {
+    width: 85%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.lol{
+	position: absolute;
+    top: 20%;
+    left: 20%;
+	margin : 300px;
+	border : 100px;
+	 background-color:white;
+	 text-align: left;
+
+}
+
+.searchbtn {
+    background: #ffec00;
+    width: 10%;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+.searchbtn .fas{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+</style>
+
+<div class="container my-3">
+	<form method="post" action="" >
+		{% csrf_token %}
+		<div class="wrapper">
+		<input type="text" class="input" id="name" name='name' placeholder="What are you looking for?" autocomplete="on">
+	<input type='hidden' value='click_button' name='form_type'/>
+			<button type=""submit" class="btn btn-success"><i> Submit</i></button>
+
+	</form>
+
+<script>
+	$(function() {
+		var availableTags = [
+
+        {% for n in name %}
+
+            "{{ n }}",
+
+        {% endfor %}
+
+    ];
+
+    $( "#name" ).autocomplete({
+
+      source: availableTags
+
+    });
+
+  } );
+
+  </script>
+
+
+
+
+</div>
+<div class="lol">
+
+		{% for n in name %}
+	  <a href="D:/samplefiles/{{ n }}" target="_blank" rel="noopener"> <li> {{ n }} </li></a>
+
+{% endfor %}
+
+ <h1>database Page</h1>
+{% if gett %}
+ <h1>Show Data</h1>
+ <h3>{{gett}}</h3>
+ <table>
+     <tr>
+         <th>ID</th>
+         <th>StuID</th>
+         <th>Name</th>
+         <th>Email</th>
+         <th>Password</th>
+     </tr>
+ <tr>
+     {% for st in gett %}
+     <td>{{st.id}}</td>
+     <td>{{st.docid}}</td>
+     <td>{{st.docname}}</td>
+     <td>{{st.docloc}}</td>
+     <td>{{st.tags}}</td>
+ </tr>
+     {% endfor %}
+</table>
+{% else %}
+ <h1>No Data</h1>
+{% endif %}
+
+</div>
+</body>
+</html>
