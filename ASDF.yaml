@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info: 
+  version: 1.0.0
+  title: OrderService
+  description: <Please add description here>
+servers: 
+  - url: http://example.com/orderservice
+    description: API Server Description
+paths: 
+  /PlaceOrder: 
+   post: 
+    operationId: PlaceOrder
+    tags: 
+     - OrderServiceBinding
+    summary: PlaceOrder
+    description: PlaceOrder
+    requestBody: 
+     required: true
+     content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/PlaceOrderRequest'
+    parameters: 
+     - $ref: '#/components/parameters/useridHeaderParam'
+     - $ref: '#/components/parameters/passwordHeaderParam'
+    responses: 
+     '200': 
+      description: <Please add description here>
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/PlaceOrderResponse'
+components: 
+  schemas: 
+   PlaceOrderRequest: 
+    title : PlaceOrderRequest
+    type: object
+    properties: 
+     OrderRequest: 
+      type: object
+      $ref: '#/components/schemas/OrderRequest'
+   OrderRequest: 
+    title : OrderRequest
+    type: object
+    properties: 
+     OrderID: 
+      type: string
+     Product: 
+      type: string
+     Quantity: 
+      type: integer
+     CustomerName: 
+      type: string
+   PlaceOrderResponse: 
+    title : PlaceOrderResponse
+    type: object
+    properties: 
+     OrderResponse: 
+      type: object
+      $ref: '#/components/schemas/OrderResponse'
+   OrderResponse: 
+    title : OrderResponse
+    type: object
+    properties: 
+     OrderID: 
+      type: string
+     Status: 
+      type: string
+  parameters: 
+   useridHeaderParam: 
+    in: header
+    name: userid
+    required: true
+    schema: 
+     type: string
+     default: <Please add default value here>
+     example: <Please add example value here>
+    description: <Please add description here>
+   passwordHeaderParam: 
+    in: header
+    name: password
+    required: true
+    schema: 
+     type: string
+     default: <Please add default value here>
+     example: <Please add example value here>
+    description: <Please add description here>
