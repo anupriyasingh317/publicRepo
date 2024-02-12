@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info: 
+  version: 1.0.0
+  title: Test
+  description: Desc
+servers: 
+  - url: http://test.com
+    description: API Server Description
+security: 
+  - BasicAuth: []
+paths: 
+  /getTests: 
+   get: 
+    operationId: GetAllTest
+    tags: 
+     - tag
+    summary: sum
+    description: desc
+    responses: 
+     '200': 
+      description: Success
+      content: 
+       application/json: 
+        schema: 
+         type: array
+         items: 
+          type: string
+components: 
+  securitySchemes: 
+   BasicAuth: 
+    type: http
+    scheme: basic
