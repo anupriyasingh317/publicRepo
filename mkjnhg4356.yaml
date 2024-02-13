@@ -1,0 +1,260 @@
+openapi: 3.0.0
+info: 
+  version: 1.0.0
+  title: Corporate Actions API V1
+  description: Corporate Actions API V1
+servers: 
+  - url: <to be set>
+    description: API Server Description
+security: 
+  - BasicAuth: []
+paths: 
+  /corporateActions: 
+   post: 
+    operationId: createCorporateActions
+    tags: 
+     - corporateActions
+    summary: Create Corporate Action
+    description: Create Corporate Action
+    requestBody: 
+     required: true
+     content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/corporateActions'
+    responses: 
+     '200': 
+      description: Create Corporate Action
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/EntityResponse'
+     '500': 
+      description: Internal Server Error
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/ErrorResponseList'
+     '404': 
+      description: Not Found
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/ErrorResponseList'
+   get: 
+    operationId: getCorporateActions
+    tags: 
+     - corporateActions
+    summary: Get All Corporate Actions
+    description: Get All Corporate Actions
+    responses: 
+     '200': 
+      description: All Corporate Actions retrieved
+      content: 
+       application/json: 
+        schema: 
+         type: array
+         items: 
+          $ref: '#/components/schemas/corporateActions'
+     '500': 
+      description: Internal Server Error
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/ErrorResponseList'
+     '404': 
+      description: Not Found
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/ErrorResponseList'
+  /corporateActions/{id}: 
+   get: 
+    operationId: getCorporateActionsById
+    tags: 
+     - corporateActions
+    summary: Get Corporate Action By Id
+    description: Get Corporate Action By Id
+    parameters: 
+     - $ref: '#/components/parameters/idPathParam'
+    responses: 
+     '200': 
+      description: Corporate Action retrieved by Id
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/corporateActions'
+     '500': 
+      description: Internal Server Error
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/ErrorResponseList'
+     '404': 
+      description: Not Found
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/ErrorResponseList'
+   delete: 
+    operationId: deleteCorporateAction
+    tags: 
+     - corporateActions
+    summary: Delete Corporate Action By Id
+    description: Delete Corporate Action By Id
+    parameters: 
+     - $ref: '#/components/parameters/idPathParam'
+    responses: 
+     '200': 
+      description: Delete Corporate Action
+      content: 
+       application/json: 
+        schema: 
+         type: string
+   put: 
+    operationId: updateCorporateAction
+    tags: 
+     - corporateActions
+    summary: Update Corporate Action By Id
+    description: Update Corporate Action By Id
+    requestBody: 
+     required: true
+     content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/corporateActions'
+    parameters: 
+     - $ref: '#/components/parameters/idPathParam'
+    responses: 
+     '200': 
+      description: Update Corporate Action
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/EntityResponse'
+     '500': 
+      description: Internal Server Error
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/ErrorResponseList'
+     '404': 
+      description: Not Found
+      content: 
+       application/json: 
+        schema: 
+         $ref: '#/components/schemas/ErrorResponseList'
+components: 
+  securitySchemes: 
+   BasicAuth: 
+    type: http
+    scheme: basic
+  schemas: 
+   ErrorResponseList: 
+    title : ErrorResponseList
+    type: object
+    properties: 
+     Error: 
+      type: object
+      $ref: '#/components/schemas/Error'
+   affectedSecurities: 
+    title : affectedSecurities
+    type: object
+    properties: 
+     symbol: 
+      type: string
+     name: 
+      type: string
+     id: 
+      type: string
+      description: affected Securities Id
+      format: uuid
+      minLength: 1
+      maxLength: 10
+      default: AS001
+      example: AS001
+      pattern: XX000
+     actionDetails: 
+      type: object
+      $ref: '#/components/schemas/actionDetails'
+     ISIN: 
+      type: string
+   EntityResponse: 
+    title : EntityResponse
+    type: object
+    properties: 
+     message: 
+      type: string
+     statusCode: 
+      type: string
+   Error: 
+    title : Error
+    type: object
+    properties: 
+     ErrorDescription: 
+      type: string
+     ErrorCode: 
+      type: string
+   actionDetails: 
+    title : actionDetails
+    type: object
+    properties: 
+     type: 
+      type: string
+     splitRatio: 
+      type: string
+   corporateActions: 
+    title : corporateActions
+    type: object
+    properties: 
+     exDate: 
+      type: string
+     affectedSecurities: 
+      type: object
+      $ref: '#/components/schemas/affectedSecurities'
+     recordDate: 
+      type: string
+     id: 
+      type: string
+      description: Corporate Actions Id
+      format: uuid
+      minLength: 1
+      maxLength: 10
+      default: CA001
+      example: CA001
+      pattern: XX000
+     type: 
+      type: string
+     paymentDate: 
+      type: string
+     issuer: 
+      type: object
+      $ref: '#/components/schemas/issuer'
+   issuer: 
+    title : issuer
+    type: object
+    properties: 
+     name: 
+      type: string
+     tickerSymbol: 
+      type: string
+     id: 
+      type: string
+      description: Issuer Id
+      format: uuid
+      minLength: 1
+      maxLength: 10
+      default: IS001
+      example: IS001
+      pattern: XX000
+     ISIN: 
+      type: string
+  parameters: 
+   idPathParam: 
+    in: path
+    name: id
+    required: true
+    schema: 
+     type: string
+     default: 
+    description: Id of Corporate Action to get details
